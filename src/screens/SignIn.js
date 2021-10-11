@@ -1,9 +1,13 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { StyleSheet, Text, View,TouchableOpacity,ToastAndroid } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import {Input, Button,} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
+import { SocialIcon } from 'react-native-elements'
+// import {
+//   GoogleSignin,
+// } from '@react-native-google-signin/google-signin';
 const  validateEmail =(email)=> {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
@@ -75,6 +79,21 @@ const [email, setEmail] = useState('');
           const res = await auth().signInWithEmailAndPassword(email, password)
           return res;
     }
+    useEffect(() => {
+        // GoogleSignin.configure({
+        //     webClientId: '537242371929-av1j4qbp4c65dold3shtrhh4r57bic4m.apps.googleusercontent.com',
+        //     });
+    }, [])
+//     async function onGoogleButtonPress() {
+//   // Get the users ID token
+//   const { idToken } = await GoogleSignin.signIn();
+
+//   // Create a Google credential with the token
+//   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+//   // Sign-in the user with the credential
+//   return auth().signInWithCredential(googleCredential);
+// }
   return (
     <View  style={styles.loginContainer}>
       <View style={styles.main}>   
@@ -130,6 +149,20 @@ const [email, setEmail] = useState('');
             handleOnPressLogin();
             }}
         />
+        <SocialIcon
+  title='Sign In With Facebook'
+  button
+  type='facebook'
+  onPress={()=>{
+      console.log('a')
+  }}
+/>
+<SocialIcon
+  title='Sign In With Google'
+  button
+  type='google'
+//    onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
+/>
         <View style={styles.signup}>
             <Text style={{fontSize: 14}} >
                 Bạn chưa có tài khoản?
